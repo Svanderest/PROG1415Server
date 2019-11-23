@@ -53,7 +53,8 @@ public class TCPClient extends JFrame implements WindowListener {
 			public void actionPerformed(ActionEvent e) {
 				if(input.getText().length() > 0) {
 					try {
-						out.writeObject(input.getText());
+						LocationMessage lm = new LocationMessage(0,0);
+						out.writeObject(lm);
 						out.flush();
 					} catch (IOException e1) {
 						e1.printStackTrace();

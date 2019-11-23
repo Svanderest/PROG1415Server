@@ -9,9 +9,12 @@ public class Client implements Runnable {
 	ObjectInputStream in = null;
 	ObjectOutputStream out = null;
 	boolean go = false;
+	public Socket socket;
 
 	public Client(Socket socket) {
 		try {
+			this.socket = socket;
+			
 			//create IO streams
 			this.out = new ObjectOutputStream(socket.getOutputStream());
 			this.in = new ObjectInputStream(socket.getInputStream());
@@ -33,11 +36,24 @@ public class Client implements Runnable {
 				Object obj = in.readObject();
 				//add valid message to the queue
 				if(obj instanceof String) {
-					TCPServer.messages.add(obj.toString());
+					TCPServer.messages.add(obj.toString());					
 				}
+				else if(obj instanceof LocationMessage) {
+					TCPServer.messages.add("Location Message Received");
+				}
+				else
+					TCPServer.messages.add("Unkown Message Received");
 			} catch (Exception e) {
 				//remove from the client list if streams are broken
 				TCPServer.clients.remove(this);
+				try {
+					TCPServer.output.append("Disconnected client\n");
+					this.socket.close();
+					go = false;
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			} 
 		}
 	}

@@ -86,8 +86,16 @@ public class TCPServer extends JFrame implements Runnable, WindowListener {
 						try {
 							clients.get(x).out.writeObject(msg);
 						} catch (IOException e) {
-							output.append("Error writing to client...\n");
-							clients.remove(x);
+							output.append("Error writing to client...\n");							
+							try {
+								output.append("Client disconnected\n");
+								clients.get(x).socket.close();
+								clients.get(x).go = false;
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							clients.remove(x);							
 						}
 					messages.remove(0);
 				}
