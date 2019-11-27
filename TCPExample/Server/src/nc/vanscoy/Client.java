@@ -36,13 +36,13 @@ public class Client implements Runnable {
 				Object obj = in.readObject();
 				//add valid message to the queue
 				if(obj instanceof String) {
-					TCPServer.messages.add(obj.toString());					
+					out.writeObject(obj.toString());					
 				}
 				else if(obj instanceof LocationMessage) {
-					TCPServer.messages.add("Location Message Received");
+					out.writeObject("Location Message Received");
 				}
 				else
-					TCPServer.messages.add("Unkown Message Received");
+					out.writeObject("Unkown Message Received");
 			} catch (Exception e) {
 				//remove from the client list if streams are broken
 				TCPServer.clients.remove(this);

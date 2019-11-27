@@ -9,6 +9,9 @@ import java.net.*;
 import java.util.*;
 import javax.swing.*;
 import java.awt.event.*;
+import javax.xml.parsers.*;
+import org.w3c.dom.*;
+
 
 //a java server program
 public class TCPServer extends JFrame implements Runnable, WindowListener {
@@ -21,8 +24,7 @@ public class TCPServer extends JFrame implements Runnable, WindowListener {
 	private boolean go = false;
 	
 	static JTextArea output = new JTextArea("Ready...\n");
-	static List<Client> clients = new ArrayList<Client>();
-	static List<String> messages = new ArrayList<String>();
+	static List<Client> clients = new ArrayList<Client>();	
 	
 	public	TCPServer() {
 		//build interface
@@ -32,6 +34,9 @@ public class TCPServer extends JFrame implements Runnable, WindowListener {
 		this.setBounds(100,100,300,500);
 		this.setVisible(true);
 		this.addWindowListener(this);
+		
+		//Read existing data
+		
 		
 		//start server main thread
 		Thread acceptThread = new Thread(this);
@@ -45,8 +50,7 @@ public class TCPServer extends JFrame implements Runnable, WindowListener {
 			//construct the server
 			server = new ServerSocket(8000);
 			//start additional server threads
-			go = true;
-			new BroadCast().start();
+			go = true;			
 		} catch (Exception e) {
 			output.append("Server launch failed...\n");
 			return;
@@ -69,39 +73,7 @@ public class TCPServer extends JFrame implements Runnable, WindowListener {
 			}
 		}
 		output.append("Server is no longer accepting clients...\n");
-	}
-
-	//a server thread to broadcast text messages to all connected clients
-	class BroadCast extends Thread {
-		@Override
-		public void run() {
-			output.append("Broadcasting enabled...\n");
-			while(go) {
-				//allow other threads to run
-				Thread.yield();
-				//check for clients and messages
-				if(messages.size() > 0 && clients.size() > 0) {
-					String msg = messages.get(0);
-					for(int x=0;x<clients.size();x++)
-						try {
-							clients.get(x).out.writeObject(msg);
-						} catch (IOException e) {
-							output.append("Error writing to client...\n");							
-							try {
-								output.append("Client disconnected\n");
-								clients.get(x).socket.close();
-								clients.get(x).go = false;
-							} catch (IOException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-							clients.remove(x);							
-						}
-					messages.remove(0);
-				}
-			}
-		}
-	}
+	}	
 
 	@Override
 	public void windowClosing(WindowEvent arg0) {
