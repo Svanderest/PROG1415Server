@@ -1,4 +1,4 @@
-package nc.vanscoy;
+package nc.com;
 import java.io.Serializable;
 
 public class LocationMessage implements Serializable {

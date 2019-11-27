@@ -1,4 +1,4 @@
-package nc.vanscoy;
+package nc.com;
 
 import java.util.*;
 import java.io.Serializable;
@@ -8,13 +8,13 @@ public class Business implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -2435070298066651844L;
-	int id;
-	String name;
-	String postal;
-	String website;	
+	public int id;
+	public String name;
+	public String postal;
+	public String website;	
 	
-	transient List<Feedback> feedback;
-	transient int feedbackCount;
+	public transient List<Feedback> feedback;
+	public transient int feedbackCount;
 	
 	public Business()
 	{

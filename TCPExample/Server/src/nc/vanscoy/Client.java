@@ -3,6 +3,8 @@ package nc.vanscoy;
 import java.io.*;
 import java.net.Socket;
 
+import nc.com.LocationMessage;
+
 public class Client implements Runnable {
 
 	//streams to read and write with client instances

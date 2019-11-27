@@ -1,103 +1,73 @@
-<?xml version = "1.0"?>
-<root>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><root>
    <business>
       <name>My Business</name>
       <postal>A1A 1A1</postal>
       <website>www.mywebsite.com</website>
-      <feedback>
-         <date>1/1/2000</date>
-         <rating>5</rating>
-         <comment>my comment</comment>
+            <feedback date="1/1/2000" rating="5">
+         my comment
       </feedback>
-      <feedback>
-         <date>1/1/2000</date>
-         <rating>5</rating>
-         <comment>my comment</comment>
+      <feedback date="1/1/2000" rating="5">
+         my comment
       </feedback>
-      <feedback>
-         <date>1/1/2000</date>
-         <rating>5</rating>
-         <comment>my comment</comment>
+            <feedback date="1/1/2000" rating="5">
+         my comment
       </feedback>
-      <feedback>
-         <date>1/1/2000</date>
-         <rating>5</rating>
-         <comment>my comment</comment>
+            <feedback date="1/1/2000" rating="5">
+         my comment
       </feedback>
    </business>
    <business>
       <name>My Business</name>
       <postal>A1A 1A1</postal>
       <website>www.mywebsite.com</website>
-      <feedback>
-         <date>1/1/2000</date>
-         <rating>5</rating>
-         <comment>my comment</comment>
+      <feedback date="1/1/2000" rating="5">
+         my comment
       </feedback>
-      <feedback>
-         <date>1/1/2000</date>
-         <rating>5</rating>
-         <comment>my comment</comment>
+            <feedback date="1/1/2000" rating="5">
+         my comment
       </feedback>
-      <feedback>
-         <date>1/1/2000</date>
-         <rating>5</rating>
-         <comment>my comment</comment>
+            <feedback date="1/1/2000" rating="5">
+         my comment
       </feedback>
-      <feedback>
-         <date>1/1/2000</date>
-         <rating>5</rating>
-         <comment>my comment</comment>
+            <feedback date="1/1/2000" rating="5">
+         my comment
       </feedback>
    </business>
    <business>
       <name>My Business</name>
       <postal>A1A 1A1</postal>
       <website>www.mywebsite.com</website>
-      <feedback>
-         <date>1/1/2000</date>
-         <rating>5</rating>
-         <comment>my comment</comment>
+            <feedback date="1/1/2000" rating="5">
+         my comment
       </feedback>
-      <feedback>
-         <date>1/1/2000</date>
-         <rating>5</rating>
-         <comment>my comment</comment>
+            <feedback date="1/1/2000" rating="5">
+         my comment
       </feedback>
-      <feedback>
-         <date>1/1/2000</date>
-         <rating>5</rating>
-         <comment>my comment</comment>
+            <feedback date="1/1/2000" rating="5">
+         my comment
       </feedback>
-      <feedback>
-         <date>1/1/2000</date>
-         <rating>5</rating>
-         <comment>my comment</comment>
+            <feedback date="1/1/2000" rating="5">
+         my comment
       </feedback>
-   </business>
+         <feedback date="1/1/2000" rating="5">
+         my comment
+      </feedback>
+  <feedback date="27/11/2019" rating="3.5">Added in code</feedback></business>
    <business>
       <name>My Business</name>
       <postal>A1A 1A1</postal>
       <website>www.mywebsite.com</website>
-      <feedback>
-         <date>1/1/2000</date>
-         <rating>5</rating>
-         <comment>my comment</comment>
+            <feedback date="1/1/2000" rating="5">
+         my comment
       </feedback>
-      <feedback>
-         <date>1/1/2000</date>
-         <rating>5</rating>
-         <comment>my comment</comment>
+            <feedback date="1/1/2000" rating="5">
+         my comment
       </feedback>
-      <feedback>
-         <date>1/1/2000</date>
-         <rating>5</rating>
-         <comment>my comment</comment>
+            <feedback date="1/1/2000" rating="5">
+         my comment
       </feedback>
-      <feedback>
-         <date>1/1/2000</date>
-         <rating>5</rating>
-         <comment>my comment</comment>
+            <feedback date="1/1/2000" rating="5">
+         my comment
       </feedback>
-   </business>
+   <feedback date="27/11/2019" rating="8.0">new comment</feedback></business>
 </root>

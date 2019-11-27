@@ -20,6 +20,9 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.*;
 
+import nc.com.Business;
+import nc.com.Feedback;
+
 
 //a java server program
 public class TCPServer extends JFrame implements Runnable, WindowListener {
@@ -54,12 +57,12 @@ public class TCPServer extends JFrame implements Runnable, WindowListener {
 	        doc.getDocumentElement().normalize();
 	        NodeList nList = doc.getElementsByTagName("business");
 	        for(int i = 0; i < nList.getLength(); i++)
-	        {
+	        {	        	
 	        	Element e = (Element)nList.item(i);
 	        	Business b = new Business();
 	        	b.id = i;
 	        	b.name = e.getElementsByTagName("name").item(0).getTextContent();
-	        	b.postal = e.getElementsByTagName("posta").item(0).getTextContent();
+	        	b.postal = e.getElementsByTagName("postal").item(0).getTextContent();
 	        	b.website = e.getElementsByTagName("website").item(0).getTextContent();
 	        	NodeList feedback = e.getElementsByTagName("feedback");
 	        	for(int j = 0; j < feedback.getLength(); j++)
@@ -67,18 +70,16 @@ public class TCPServer extends JFrame implements Runnable, WindowListener {
 	        		Feedback f = new Feedback();
 	        		f.businessId = i;
 	        		Element fe = (Element)feedback.item(j);
-	        		f.comment = fe.getElementsByTagName("comment").item(0).getTextContent();
-	        		f.rating = Float.parseFloat(fe.getElementsByTagName("rating").item(0).getTextContent());
-	        		f.date = new SimpleDateFormat("dd/MM/yyyy").parse(fe.getElementsByTagName("date").item(0).getTextContent());	        		
+	        		f.comment = fe.getTextContent();
+	        		f.rating = Float.parseFloat(fe.getAttribute("rating"));
+	        		f.date = new SimpleDateFormat("dd/MM/yyyy").parse(fe.getAttribute("date"));	        		
 	        		b.feedback.add(f);
 	        	}	        
 	        	b.feedbackCount = b.feedback.size();
-	        	data.add(b);
-	        	System.out.println(i);
-	        	System.out.println(data.size());
+	        	data.add(b);	        	
 	        }	       
 		} catch (Exception e) {
-        	System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 		
 		//Start file save thread
@@ -86,54 +87,21 @@ public class TCPServer extends JFrame implements Runnable, WindowListener {
 		t.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
-				try
-				{
-					File inputFile = new File("buisnesses.xml");             
-					DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-					DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-					Document doc = dBuilder.parse(inputFile);
-					doc.getDocumentElement().normalize();
-			        NodeList nList = doc.getElementsByTagName("business");
-			        Boolean changed = false;
-			        for(int i = 0; i < data.size(); i++)
-			        {
-			        	Element e = (Element)nList.item(i);
-			        	Business b = data.get(i); 
-			        	for(int j = b.feedbackCount; j < b.feedback.size(); j++) {			        		
-			        		Element fe = doc.createElement("feedback");			  
-			        		Element de = doc.createElement("date");
-			        		de.setTextContent(b.feedback.get(j).date.toString());
-			        		fe.appendChild(de);
-			        		Element re = doc.createElement("rating");
-			        		de.setTextContent(Float.toString(b.feedback.get(j).rating));
-			        		fe.appendChild(re);
-			        		Element ce = doc.createElement("comment");
-			        		de.setTextContent(b.feedback.get(j).comment);
-			        		fe.appendChild(ce);
-			        		e.appendChild(fe);
-			        		changed = true;
-			        	}
-			        	b.feedbackCount = b.feedback.size();
-			        }
-			        if(changed) {
-			        	TransformerFactory transformerFactory = TransformerFactory.newInstance();
-			    		Transformer transformer = transformerFactory.newTransformer();
-			    		DOMSource source = new DOMSource(doc);
-			    		StreamResult result = new StreamResult(inputFile);
-			    		transformer.transform(source, result);
-			        }
-				} catch (Exception e) {
-					
-				}
+				TCPServer.this.saveFeedback();
 			}
-		}, 1000,1000);//600000, 600000);
-		
-		
+		}, 6000, 6000);
+				
 		Feedback f = new Feedback();
 		f.rating = 3.5f;
 		f.comment = "Added in code";
 		f.date = new Date();
 		data.get(2).feedback.add(f);
+		
+		Feedback f2 = new Feedback();
+		f2.rating = 8;
+		f2.comment = "new comment";
+		f2.date = new Date();
+		data.get(3).feedback.add(f2);
 		
 		//start server main thread
 		Thread acceptThread = new Thread(this);
@@ -179,9 +147,48 @@ public class TCPServer extends JFrame implements Runnable, WindowListener {
 			clients.get(x).go = false;
 		try {
 			server.close();
-		} catch (IOException e) {}
-		System.exit(0);
-		
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		saveFeedback();
+		System.exit(0);	
+	}
+	
+	private void saveFeedback()
+	{
+		try
+		{
+			File inputFile = new File("buisnesses.xml");             
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(inputFile);
+			doc.getDocumentElement().normalize();
+	        NodeList nList = doc.getElementsByTagName("business");
+	        Boolean changed = false;
+	        for(int i = 0; i < data.size(); i++)
+	        {
+	        	Element e = (Element)nList.item(i);
+	        	Business b = data.get(i); 
+	        	for(int j = b.feedbackCount; j < b.feedback.size(); j++) {			        		
+	        		Element fe = doc.createElement("feedback");			  
+	        		fe.setTextContent(b.feedback.get(j).comment);
+	        		fe.setAttribute("rating", Float.toString(b.feedback.get(j).rating));
+	        		fe.setAttribute("date", new SimpleDateFormat("dd/MM/yyyy").format(b.feedback.get(j).date));
+	        		e.appendChild(fe);
+	        		changed = true;
+	        	}
+	        	b.feedbackCount = b.feedback.size();
+	        }
+	        if(changed) {
+	        	TransformerFactory transformerFactory = TransformerFactory.newInstance();
+	    		Transformer transformer = transformerFactory.newTransformer();
+	    		DOMSource source = new DOMSource(doc);
+	    		StreamResult result = new StreamResult(inputFile);
+	    		transformer.transform(source, result);
+	        }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
