@@ -10,8 +10,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
+
 import javax.swing.*;
 import java.awt.event.*;
+import nc.com.*;
 
 //A java client program
 public class TCPClient extends JFrame implements WindowListener {
@@ -53,7 +56,7 @@ public class TCPClient extends JFrame implements WindowListener {
 			public void actionPerformed(ActionEvent e) {
 				if(input.getText().length() > 0) {
 					try {
-						LocationMessage lm = new LocationMessage(0,0);
+						Location lm = new Location(-79.02,42.83);
 						out.writeObject(lm);
 						out.flush();
 					} catch (IOException e1) {
@@ -74,7 +77,17 @@ public class TCPClient extends JFrame implements WindowListener {
 					Object obj = in.readObject();
 					if(obj instanceof String)
 						output.append(obj.toString() + "\n");
-				} catch (Exception e) { }
+					else if(obj instanceof ArrayList)
+					{
+						output.append(((ArrayList)obj).get(0).getClass().getName());						
+					}
+					else
+					{
+						output.append(obj.getClass().getName() + "\n");
+					}
+				} catch (Exception e) { 
+					output.append(e.getMessage());
+				}
 			}
 		}
 		

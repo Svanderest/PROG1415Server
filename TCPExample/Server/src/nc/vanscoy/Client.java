@@ -2,8 +2,10 @@ package nc.vanscoy;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
-import nc.com.LocationMessage;
+import nc.com.*;
 
 public class Client implements Runnable {
 
@@ -36,15 +38,32 @@ public class Client implements Runnable {
 			try {
 				//wait until a message comes from the client
 				Object obj = in.readObject();
-				//add valid message to the queue
-				if(obj instanceof String) {
-					out.writeObject(obj.toString());					
+				Object response = null;
+				if(obj instanceof Location) {
+					Location message = (Location)obj;
+					response = new ArrayList<Business>();
+					for(int i = 0; i < TCPServer.data.size(); i++)
+					{
+						if(message.getDistance(TCPServer.data.get(i)) < 0.05)
+						{
+							TCPServer.data.get(i).setAverageRating();
+							((ArrayList)response).add(TCPServer.data.get(i));
+						}
+					}
 				}
-				else if(obj instanceof LocationMessage) {
-					out.writeObject("Location Message Received");
+				else if(obj instanceof BusinessMessage)
+				{
+					response = TCPServer.data.get(((BusinessMessage)obj).BusinessID).feedback;
+				}
+				else if(obj instanceof Feedback)
+				{
+					int id = ((Feedback)obj).businessId;
+					TCPServer.data.get(id).feedback.add((Feedback)obj);
+					response = "Added";
 				}
 				else
-					out.writeObject("Unkown Message Received");
+					response = "Unkown Message Received";
+				out.writeObject(response);
 			} catch (Exception e) {
 				//remove from the client list if streams are broken
 				TCPServer.clients.remove(this);

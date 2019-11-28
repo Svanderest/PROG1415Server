@@ -60,9 +60,11 @@ public class TCPServer extends JFrame implements Runnable, WindowListener {
 	        {	        	
 	        	Element e = (Element)nList.item(i);
 	        	Business b = new Business();
+	        	b.lt = Double.parseDouble(e.getAttribute("lt"));
+	        	b.lg = Double.parseDouble(e.getAttribute("lg"));
 	        	b.id = i;
 	        	b.name = e.getElementsByTagName("name").item(0).getTextContent();
-	        	b.postal = e.getElementsByTagName("postal").item(0).getTextContent();
+	        	b.address = e.getElementsByTagName("address").item(0).getTextContent();
 	        	b.website = e.getElementsByTagName("website").item(0).getTextContent();
 	        	NodeList feedback = e.getElementsByTagName("feedback");
 	        	for(int j = 0; j < feedback.getLength(); j++)
@@ -89,19 +91,7 @@ public class TCPServer extends JFrame implements Runnable, WindowListener {
 			public void run() {
 				TCPServer.this.saveFeedback();
 			}
-		}, 6000, 6000);
-				
-		Feedback f = new Feedback();
-		f.rating = 3.5f;
-		f.comment = "Added in code";
-		f.date = new Date();
-		data.get(2).feedback.add(f);
-		
-		Feedback f2 = new Feedback();
-		f2.rating = 8;
-		f2.comment = "new comment";
-		f2.date = new Date();
-		data.get(3).feedback.add(f2);
+		}, 600000, 600000);
 		
 		//start server main thread
 		Thread acceptThread = new Thread(this);
@@ -154,10 +144,10 @@ public class TCPServer extends JFrame implements Runnable, WindowListener {
 		System.exit(0);	
 	}
 	
-	private void saveFeedback()
+	private synchronized void saveFeedback()
 	{
 		try
-		{
+		{			
 			File inputFile = new File("buisnesses.xml");             
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -185,7 +175,7 @@ public class TCPServer extends JFrame implements Runnable, WindowListener {
 	    		DOMSource source = new DOMSource(doc);
 	    		StreamResult result = new StreamResult(inputFile);
 	    		transformer.transform(source, result);
-	        }
+	        }		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

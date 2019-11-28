@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><root>
-   <business>
+   <business lg="-79.02" lt="42.83">
       <name>My Business</name>
-      <postal>A1A 1A1</postal>
+      <address>15 Main St</address>
       <website>www.mywebsite.com</website>
             <feedback date="1/1/2000" rating="5">
          my comment
@@ -16,10 +16,13 @@
          my comment
       </feedback>
    </business>
-   <business>
+   <business lg="-79.02" lt="42.83">
       <name>My Business</name>
-      <postal>A1A 1A1</postal>
+      <address>15 Main St</address>
       <website>www.mywebsite.com</website>
+            <feedback date="1/1/2000" rating="5">
+         my comment
+      </feedback>
       <feedback date="1/1/2000" rating="5">
          my comment
       </feedback>
@@ -29,18 +32,66 @@
             <feedback date="1/1/2000" rating="5">
          my comment
       </feedback>
+   </business>
+<business lg="-79.02" lt="42.83">
+      <name>My Business</name>
+      <address>15 Main St</address>
+      <website>www.mywebsite.com</website>
+            <feedback date="1/1/2000" rating="5">
+         my comment
+      </feedback>
+      <feedback date="1/1/2000" rating="5">
+         my comment
+      </feedback>
+            <feedback date="1/1/2000" rating="5">
+         my comment
+      </feedback>
+            <feedback date="1/1/2000" rating="5">
+         my comment
+      </feedback>
+   <feedback date="28/11/2019" rating="3.5">Added in code</feedback></business>
+   <business lg="-79.02" lt="42.83">
+      <name>My Business</name>
+      <address>15 Main St</address>
+      <website>www.mywebsite.com</website>
+            <feedback date="1/1/2000" rating="5">
+         my comment
+      </feedback>
+      <feedback date="1/1/2000" rating="5">
+         my comment
+      </feedback>
+            <feedback date="1/1/2000" rating="5">
+         my comment
+      </feedback>
+            <feedback date="1/1/2000" rating="5">
+         my comment
+      </feedback>
+   <feedback date="28/11/2019" rating="8.0">new comment</feedback></business>
+   <business lg="-79.02" lt="42.83">
+      <name>My Business</name>
+      <address>15 Main St</address>
+      <website>www.mywebsite.com</website>
+            <feedback date="1/1/2000" rating="5">
+         my comment
+      </feedback>
+      <feedback date="1/1/2000" rating="5">
+         my comment
+      </feedback>
+            <feedback date="1/1/2000" rating="5">
+         my comment
+      </feedback>
             <feedback date="1/1/2000" rating="5">
          my comment
       </feedback>
    </business>
-   <business>
+   <business lg="-79.02" lt="42.83">
       <name>My Business</name>
-      <postal>A1A 1A1</postal>
+      <address>15 Main St</address>
       <website>www.mywebsite.com</website>
             <feedback date="1/1/2000" rating="5">
          my comment
       </feedback>
-            <feedback date="1/1/2000" rating="5">
+      <feedback date="1/1/2000" rating="5">
          my comment
       </feedback>
             <feedback date="1/1/2000" rating="5">
@@ -49,18 +100,15 @@
             <feedback date="1/1/2000" rating="5">
          my comment
       </feedback>
-         <feedback date="1/1/2000" rating="5">
-         my comment
-      </feedback>
-  <feedback date="27/11/2019" rating="3.5">Added in code</feedback></business>
-   <business>
+   </business>
+   <business lg="-79.02" lt="42.83">
       <name>My Business</name>
-      <postal>A1A 1A1</postal>
+      <address>15 Main St</address>
       <website>www.mywebsite.com</website>
             <feedback date="1/1/2000" rating="5">
          my comment
       </feedback>
-            <feedback date="1/1/2000" rating="5">
+      <feedback date="1/1/2000" rating="5">
          my comment
       </feedback>
             <feedback date="1/1/2000" rating="5">
@@ -69,5 +117,22 @@
             <feedback date="1/1/2000" rating="5">
          my comment
       </feedback>
-   <feedback date="27/11/2019" rating="8.0">new comment</feedback></business>
+   </business>
+   <business lg="-79.02" lt="42.83">
+      <name>My Business</name>
+      <address>15 Main St</address>
+      <website>www.mywebsite.com</website>
+            <feedback date="1/1/2000" rating="5">
+         my comment
+      </feedback>
+      <feedback date="1/1/2000" rating="5">
+         my comment
+      </feedback>
+            <feedback date="1/1/2000" rating="5">
+         my comment
+      </feedback>
+            <feedback date="1/1/2000" rating="5">
+         my comment
+      </feedback>
+   </business>
 </root>
