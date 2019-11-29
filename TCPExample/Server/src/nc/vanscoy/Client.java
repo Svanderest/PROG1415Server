@@ -39,8 +39,9 @@ public class Client implements Runnable {
 				//wait until a message comes from the client
 				Object obj = in.readObject();
 				Object response = null;
-				if(obj instanceof Location) {
+				if(obj instanceof Location) {					
 					Location message = (Location)obj;
+					TCPServer.output.append("Location received:" + String.valueOf(message.lg) + ", " + String.valueOf(message.lt) + "\n");
 					response = new ArrayList<Business>();
 					for(int i = 0; i < TCPServer.data.size(); i++)
 					{
