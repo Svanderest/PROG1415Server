@@ -74,15 +74,17 @@ public class TCPServer extends JFrame implements Runnable, WindowListener {
 	        		Element fe = (Element)feedback.item(j);
 	        		f.comment = fe.getTextContent();
 	        		f.rating = Float.parseFloat(fe.getAttribute("rating"));
-	        		f.date = new SimpleDateFormat("dd/MM/yyyy").parse(fe.getAttribute("date"));	        		
+	        		f.date = new SimpleDateFormat("dd/MM/yyyy").parse(fe.getAttribute("date"));	      
+	        		output.append(f.date.toString() + "\n");
 	        		b.feedback.add(f);
 	        	}	        
 	        	b.feedbackCount = b.feedback.size();
-	        	data.add(b);	        	
+	        	data.add(b);	   	        	
 	        }	       
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		output.append("Loaded " + String.valueOf(data.size()) + " business records\n");
 		
 		//Start file save thread
 		Timer t = new Timer();
