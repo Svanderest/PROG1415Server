@@ -50,7 +50,7 @@ public class TCPServer extends JFrame implements Runnable, WindowListener {
 		//Read existing data
 		try
 		{
-			File inputFile = new File("buisnesses.xml");             
+			File inputFile = new File("businesses.xml");             
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(inputFile);
@@ -65,7 +65,7 @@ public class TCPServer extends JFrame implements Runnable, WindowListener {
 	        	b.id = i;
 	        	b.name = e.getElementsByTagName("name").item(0).getTextContent();
 	        	b.address = e.getElementsByTagName("address").item(0).getTextContent();
-	        	b.website = e.getElementsByTagName("website").item(0).getTextContent();
+	        	b.website = "www" + e.getElementsByTagName("name").item(0).getTextContent() + ".com";
 	        	NodeList feedback = e.getElementsByTagName("feedback");
 	        	for(int j = 0; j < feedback.getLength(); j++)
 	        	{
@@ -74,8 +74,7 @@ public class TCPServer extends JFrame implements Runnable, WindowListener {
 	        		Element fe = (Element)feedback.item(j);
 	        		f.comment = fe.getTextContent();
 	        		f.rating = Float.parseFloat(fe.getAttribute("rating"));
-	        		f.date = new SimpleDateFormat("dd/MM/yyyy").parse(fe.getAttribute("date"));	      
-	        		output.append(f.date.toString() + "\n");
+	        		f.date = new SimpleDateFormat("dd/MM/yyyy").parse(fe.getAttribute("date"));	      	        		
 	        		b.feedback.add(f);
 	        	}	        
 	        	b.feedbackCount = b.feedback.size();
