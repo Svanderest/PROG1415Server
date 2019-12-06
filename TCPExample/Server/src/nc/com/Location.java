@@ -13,7 +13,8 @@ public class Location implements Serializable {
 	
 	public double getDistance(Location l)
 	{
-		return Math.sqrt(Math.pow((lt - l.lt),2) + Math.pow(lg -l.lg, 2));
+		double deg = Math.sqrt(Math.pow((lt - l.lt),2) + Math.pow(lg -l.lg, 2));
+		return deg * 60 * 60 * 30; 		
 	}
 	
 	public Location(double lg, double lt)

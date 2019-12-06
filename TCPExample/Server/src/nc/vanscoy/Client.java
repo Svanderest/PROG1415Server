@@ -45,7 +45,7 @@ public class Client implements Runnable {
 					response = new ArrayList<Business>();
 					for(int i = 0; i < TCPServer.data.size(); i++)
 					{
-						if(message.getDistance(TCPServer.data.get(i)) < 0.02)
+						if(message.getDistance(TCPServer.data.get(i)) < 3000)
 						{
 							TCPServer.data.get(i).setAverageRating();
 							((ArrayList)response).add(TCPServer.data.get(i));

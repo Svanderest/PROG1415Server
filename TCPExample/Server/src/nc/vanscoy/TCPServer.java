@@ -65,7 +65,7 @@ public class TCPServer extends JFrame implements Runnable, WindowListener {
 	        	b.id = i;
 	        	b.name = e.getElementsByTagName("name").item(0).getTextContent();
 	        	b.address = e.getElementsByTagName("address").item(0).getTextContent();
-	        	b.website = "www" + e.getElementsByTagName("name").item(0).getTextContent() + ".com";
+	        	b.website = "www." + e.getElementsByTagName("name").item(0).getTextContent() + ".end";
 	        	NodeList feedback = e.getElementsByTagName("feedback");
 	        	for(int j = 0; j < feedback.getLength(); j++)
 	        	{
