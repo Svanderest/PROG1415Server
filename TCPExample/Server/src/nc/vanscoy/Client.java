@@ -51,21 +51,28 @@ public class Client implements Runnable {
 							((ArrayList)response).add(TCPServer.data.get(i));
 						}						
 					}
-					TCPServer.output.append("Returned " + String.valueOf(((ArrayList)response).size()) + " business records");
+					TCPServer.output.append("Returned " + String.valueOf(((ArrayList)response).size()) + " business records\n");
 				}
 				else if(obj instanceof BusinessMessage)
 				{
 					response = TCPServer.data.get(((BusinessMessage)obj).BusinessID).feedback;
+					TCPServer.output.append("Returned " + String.valueOf(((ArrayList)response).size()) + " feedback records\n");
 				}
 				else if(obj instanceof Feedback)
 				{
-					int id = ((Feedback)obj).businessId;
-					TCPServer.data.get(id).feedback.add((Feedback)obj);
+					Feedback f = (Feedback)obj;
+					int id = f.businessId;
+					TCPServer.data.get(id).feedback.add(f);
+					TCPServer.output.append("Added new review\n");
+					TCPServer.output.append("Date: " + String.valueOf(f.date) + "\n");
+					TCPServer.output.append("Rating: " + String.valueOf(f.rating) + "\n");				
+					TCPServer.output.append("Comment: "+ f.comment +"\n");					
 					response = "Added";
 				}
 				else
 					response = "Unkown Message Received";
 				out.writeObject(response);
+				out.flush();
 			} catch (Exception e) {
 				//remove from the client list if streams are broken
 				TCPServer.clients.remove(this);

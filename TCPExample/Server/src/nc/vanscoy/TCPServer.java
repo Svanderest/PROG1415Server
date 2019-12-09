@@ -92,7 +92,7 @@ public class TCPServer extends JFrame implements Runnable, WindowListener {
 			public void run() {
 				TCPServer.this.saveFeedback();
 			}
-		}, 600000, 600000);
+		}, 60000, 60000);
 		
 		//start server main thread
 		Thread acceptThread = new Thread(this);
@@ -149,7 +149,8 @@ public class TCPServer extends JFrame implements Runnable, WindowListener {
 	{
 		try
 		{			
-			File inputFile = new File("buisnesses.xml");             
+			output.append("Saving\n");
+			File inputFile = new File("businesses.xml");             
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(inputFile);
