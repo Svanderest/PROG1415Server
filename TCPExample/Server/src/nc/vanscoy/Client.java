@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.lang.Cloneable;
 
 import nc.com.*;
 
@@ -38,7 +39,7 @@ public class Client implements Runnable {
 			try {
 				//wait until a message comes from the client
 				Object obj = in.readObject();
-				Object response = null;
+				Object response = null;				
 				if(obj instanceof Location) {					
 					Location message = (Location)obj;
 					TCPServer.output.append("Location received:" + String.valueOf(message.lg) + ", " + String.valueOf(message.lt) + "\n");
@@ -51,7 +52,7 @@ public class Client implements Runnable {
 							((ArrayList)response).add(TCPServer.data.get(i));
 						}						
 					}
-					TCPServer.output.append("Returned " + String.valueOf(((ArrayList)response).size()) + " business records\n");
+					TCPServer.output.append("Returned " + String.valueOf(((ArrayList)response).size()) + " business records\n");					
 				}
 				else if(obj instanceof BusinessMessage)
 				{
@@ -70,8 +71,12 @@ public class Client implements Runnable {
 					response = "Added";
 				}
 				else
-					response = "Unkown Message Received";
-				out.writeObject(response);
+					response = "Unkown Message Received";		
+				if(response instanceof ArrayList)
+					out.writeObject(((ArrayList)response).clone());
+				else				
+					out.writeObject(response);
+								
 				out.flush();
 			} catch (Exception e) {
 				//remove from the client list if streams are broken

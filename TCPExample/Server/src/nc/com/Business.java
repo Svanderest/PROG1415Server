@@ -22,7 +22,7 @@ public class Business extends Location implements Serializable {
 		averageRating = total/feedback.size();
 	}	
 	
-	public transient List<Feedback> feedback;
+	public transient ArrayList<Feedback> feedback;
 	public transient int feedbackCount;
 	
 	public Business() 
